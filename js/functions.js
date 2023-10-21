@@ -25,5 +25,7 @@ const getDigits = (str) => {
   }
   return result === '' ? NaN: result;
 };
-
+getDigits();
+checkPalindrom();
+getStrLength();
 
