@@ -1,4 +1,10 @@
-
+const upperBound = 25;
+const lowerBound = 1;
+const upperBoundForLikes = 200;
+const lowerBoundForLikes= 15;
+const boundsForImg = [1, 6];
+const amountOfComments = 30;
+const amountOfPhotos = 25;
 const ARR_OF_MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -18,22 +24,32 @@ const getRandomInteger = (a, b) => {
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
 };
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const idCreater = () =>{
+  let lastGeneratedId = 0;
 
+  return function () {
+    lastGeneratedId += 1;
+    return lastGeneratedId;
+  };
+};
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+const createIdForComm = idCreater();
+const createIdForPhotos = idCreater();
 const createComment = () => ({
-  id: getRandomInteger(0, 25), //любое число
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+  id: createIdForComm(), //любое число
+  avatar: `img/avatar-${getRandomInteger(boundsForImg[0], boundsForImg[1])}.svg`,
   message:getRandomArrayElement(ARR_OF_MESSAGES),
   name:`${getRandomArrayElement(NAMES) } ${ getRandomArrayElement(SURNAMES)}`
 });
-const arrOfComments = Array.from({length: 30}, createComment);
+const arrOfComments = Array.from({length: amountOfComments}, createComment);
 const createPhotoDescription = ()=> ({
-  id: getRandomInteger(1, 25), //от 1 до 25.
-  url:`photos/${getRandomInteger(1, 25)}.jpg`, //от 1 до 25.
+  id: createIdForPhotos, //от 1 до 25.
+  url:`photos/${getRandomInteger(lowerBound, upperBound)}.jpg`, //от 1 до 25.
   description:getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(15, 200), // от 15 до 200.
+  likes: getRandomInteger(lowerBoundForLikes, upperBoundForLikes), // от 15 до 200.
   comments: getRandomArrayElement(arrOfComments) //массив комментов от 0 до 30, комменты генерятся случайно
 });
-const photoDescriptions = Array.from({length: 25}, createPhotoDescription);
+const photoDescriptions =() =>  Array.from({length: amountOfPhotos}, createPhotoDescription);
 
+photoDescriptions();
 
