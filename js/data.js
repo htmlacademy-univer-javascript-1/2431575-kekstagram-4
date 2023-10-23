@@ -1,11 +1,11 @@
-import { getPhotoDescriptions } from './data';
+import { getRandomArrayElement, getRandomInteger, idCreater } from './util';
 
 const UPPER_BOUND = 25;
 const LOWER_BOUND = 1;
 const UPPER_BOUND_FOR_LIKES = 200;
-const LOWER_BOUND_FOR_LIKES= 15;
+const LOWER_BOUN_FOR_LIKES= 15;
 const BOUNDS_FOR_IMG = [1, 6];
-const AMOUNT_OFCOMMENTS = 30;
+const AMOUNT_OF_COMMENTS = 30;
 const AMOUNT_OF_PHOTOS = 25;
 const ARR_OF_MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -20,21 +20,7 @@ const DESCRIPTIONS = ['Моя фотка', 'Вот это кайф, да', 'Я :
   'f', 'g', 'h', 'c', 'f', 'fdgd', 'sidufvh', 'Ха-ха-ха', '17', '18',
   '19', '20', '21', '22', '23', '24', '25'];
 
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-const idCreater = () =>{
-  let lastGeneratedId = 0;
 
-  return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
-  };
-};
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 const createIdForComm = idCreater();
 const createIdForPhotos = idCreater();
 const createComment = () => ({
@@ -43,16 +29,15 @@ const createComment = () => ({
   message:getRandomArrayElement(ARR_OF_MESSAGES),
   name:`${getRandomArrayElement(NAMES) } ${ getRandomArrayElement(SURNAMES)}`
 });
-const arrOfComments = Array.from({length: AMOUNT_OFCOMMENTS}, createComment);
+const arrOfComments = Array.from({length: AMOUNT_OF_COMMENTS}, createComment);
 const createPhotoDescription = ()=> ({
   id: createIdForPhotos, //от 1 до 25.
   url:`photos/${getRandomInteger(LOWER_BOUND, UPPER_BOUND)}.jpg`, //от 1 до 25.
   description:getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(LOWER_BOUND_FOR_LIKES, UPPER_BOUND_FOR_LIKES), // от 15 до 200.
+  likes: getRandomInteger(LOWER_BOUN_FOR_LIKES, UPPER_BOUND_FOR_LIKES), // от 15 до 200.
   comments: getRandomArrayElement(arrOfComments) //массив комментов от 0 до 30, комменты генерятся случайно
 });
-const photoDescriptions =() =>  Array.from({length: AMOUNT_OF_PHOTOS}, createPhotoDescription);
-
-photoDescriptions();
+const getPhotoDescriptions =() =>  Array.from({length: AMOUNT_OF_PHOTOS}, createPhotoDescription);
 
 getPhotoDescriptions();
+export {getPhotoDescriptions};

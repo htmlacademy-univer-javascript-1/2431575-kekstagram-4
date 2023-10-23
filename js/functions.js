@@ -26,4 +26,3 @@ const getDigits = (str) => {
   return result === '' ? NaN: result;
 };
 
-
