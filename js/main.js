@@ -1,10 +1,10 @@
-const upperBound = 25;
-const lowerBound = 1;
-const upperBoundForLikes = 200;
-const lowerBoundForLikes= 15;
-const boundsForImg = [1, 6];
-const amountOfComments = 30;
-const amountOfPhotos = 25;
+const UPPER_BOUND = 25;
+const LOWER_BOUND = 1;
+const UPPER_BOUND_FOR_LIKES = 200;
+const LOWER_BOUND_FOR_LIKES= 15;
+const BOUNDS_FOR_IMG = [1, 6];
+const AMOUNT_OFCOMMENTS = 30;
+const AMOUNT_OF_PHOTOS = 25;
 const ARR_OF_MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -37,19 +37,19 @@ const createIdForComm = idCreater();
 const createIdForPhotos = idCreater();
 const createComment = () => ({
   id: createIdForComm(), //любое число
-  avatar: `img/avatar-${getRandomInteger(boundsForImg[0], boundsForImg[1])}.svg`,
+  avatar: `img/avatar-${getRandomInteger(BOUNDS_FOR_IMG[0], BOUNDS_FOR_IMG[1])}.svg`,
   message:getRandomArrayElement(ARR_OF_MESSAGES),
   name:`${getRandomArrayElement(NAMES) } ${ getRandomArrayElement(SURNAMES)}`
 });
-const arrOfComments = Array.from({length: amountOfComments}, createComment);
+const arrOfComments = Array.from({length: AMOUNT_OFCOMMENTS}, createComment);
 const createPhotoDescription = ()=> ({
   id: createIdForPhotos, //от 1 до 25.
-  url:`photos/${getRandomInteger(lowerBound, upperBound)}.jpg`, //от 1 до 25.
+  url:`photos/${getRandomInteger(LOWER_BOUND, UPPER_BOUND)}.jpg`, //от 1 до 25.
   description:getRandomArrayElement(DESCRIPTIONS),
-  likes: getRandomInteger(lowerBoundForLikes, upperBoundForLikes), // от 15 до 200.
+  likes: getRandomInteger(LOWER_BOUND_FOR_LIKES, UPPER_BOUND_FOR_LIKES), // от 15 до 200.
   comments: getRandomArrayElement(arrOfComments) //массив комментов от 0 до 30, комменты генерятся случайно
 });
-const photoDescriptions =() =>  Array.from({length: amountOfPhotos}, createPhotoDescription);
+const photoDescriptions =() =>  Array.from({length: AMOUNT_OF_PHOTOS}, createPhotoDescription);
 
 photoDescriptions();
 
