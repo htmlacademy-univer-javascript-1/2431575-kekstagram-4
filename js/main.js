@@ -1,3 +1,3 @@
 import { getPhotoDescriptions } from './data';
-
-getPhotoDescriptions();
+import { renderMiniatures } from './render';
+renderMiniatures(getPhotoDescriptions());
