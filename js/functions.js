@@ -25,9 +25,8 @@ const getDigits = (str) => {
   }
   return result === '' ? NaN: result;
 };
-getDigits('123');
-checkPalindrom('12321');
-getStrLength('23', 2);
+
+
 //Задание 5.16
 const summTime = (hours, minutes) => {
   const firstNum = hours.split('.');
