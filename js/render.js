@@ -1,17 +1,17 @@
-const MINIATURES_TEMPLATE = document.querySelector('#picture')
+const miniaturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-const PICTURES_LIST = document.querySelector('.pictures');
-const PICTURES_FRAGMENT = document.createDocumentFragment();
+const picturesList = document.querySelector('.pictures');
+const picturesFragment = document.createDocumentFragment();
 
 const createMiniatures = ({url, likes, description, comments}) => {
-  const miniatureElement = MINIATURES_TEMPLATE.cloneNode(true);
+  const miniatureElement = miniaturesTemplate.cloneNode(true);
   const miniatureComments = miniatureElement.querySelector('.picture__comments');
   const miniatureLikes = miniatureElement.querySelector('.picture__likes');
   const picture = miniatureElement.querySelector('.picture__img');
   picture.src = url;
   picture.alt = description;
-  miniatureComments.textContent = comments;
+  miniatureComments.textContent = comments.length;
   miniatureLikes.textContent = likes;
 
   return miniatureElement;
@@ -19,9 +19,9 @@ const createMiniatures = ({url, likes, description, comments}) => {
 
 const renderMiniatures = (pictures) => {
   pictures.forEach((picture) => {
-    PICTURES_FRAGMENT.append(createMiniatures(picture));
+    picturesFragment.append(createMiniatures(picture));
   });
-  PICTURES_LIST.append(PICTURES_FRAGMENT);
+  picturesList.append(picturesFragment);
 };
 
 export {renderMiniatures};

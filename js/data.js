@@ -1,4 +1,4 @@
-import { getRandomArrayElement, getRandomInteger, idCreater } from './util';
+import { getRandomArrayElement, getRandomInteger, idCreater } from './util.js';
 
 const UPPER_BOUND = 25;
 const LOWER_BOUND = 1;
@@ -29,15 +29,14 @@ const createComment = () => ({
   message:getRandomArrayElement(ARR_OF_MESSAGES),
   name:`${getRandomArrayElement(NAMES) } ${ getRandomArrayElement(SURNAMES)}`
 });
-const arrOfComments = Array.from({length: AMOUNT_OF_COMMENTS}, createComment);
+const arrOfComments = ()=> Array.from({length: AMOUNT_OF_COMMENTS}, createComment);
 const createPhotoDescription = ()=> ({
   id: createIdForPhotos, //от 1 до 25.
   url:`photos/${getRandomInteger(LOWER_BOUND, UPPER_BOUND)}.jpg`, //от 1 до 25.
   description:getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LOWER_BOUN_FOR_LIKES, UPPER_BOUND_FOR_LIKES), // от 15 до 200.
-  comments: getRandomArrayElement(arrOfComments) //массив комментов от 0 до 30, комменты генерятся случайно
+  comments:arrOfComments() //массив комментов от 0 до 30, комменты генерятся случайно
 });
 const getPhotoDescriptions =() =>  Array.from({length: AMOUNT_OF_PHOTOS}, createPhotoDescription);
 
-getPhotoDescriptions();
 export {getPhotoDescriptions};
