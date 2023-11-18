@@ -31,7 +31,7 @@ const createComment = () => ({
 });
 const arrOfComments = ()=> Array.from({length: AMOUNT_OF_COMMENTS}, createComment);
 const createPhotoDescription = ()=> ({
-  id: createIdForPhotos, //от 1 до 25.
+  id: createIdForPhotos(), //от 1 до 25.
   url:`photos/${getRandomInteger(LOWER_BOUND, UPPER_BOUND)}.jpg`, //от 1 до 25.
   description:getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(LOWER_BOUN_FOR_LIKES, UPPER_BOUND_FOR_LIKES), // от 15 до 200.

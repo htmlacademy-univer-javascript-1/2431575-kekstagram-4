@@ -6,7 +6,6 @@ const getRandomInteger = (a, b) => {
 };
 const idCreater = () =>{
   let lastGeneratedId = 0;
-
   return function () {
     lastGeneratedId += 1;
     return lastGeneratedId;
