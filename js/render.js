@@ -5,6 +5,8 @@ const miniaturesTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 const picturesList = document.querySelector('.pictures');
 const picturesFragment = document.createDocumentFragment();
+const imageWidth = 35;
+const imageHeight = 35;
 
 const createMiniatures = ({url, likes, description, comments}) => {
   const miniatureElement = miniaturesTemplate.cloneNode(true);
@@ -34,15 +36,15 @@ const renderMiniatures = (pictures) => {
 
 const createCommentPattern = ()=> {
   const newComment = document.createElement('li');
-  newComment.classList.add('social__comment');
+  const text = document.createElement('p');
   const image = document.createElement('img');
+  newComment.classList.add('social__comment');
   image.classList.add('social__picture');
   image.src = '';
   image.alt = '';
-  image.width = 35;
-  image.height = 35;
+  image.width = imageWidth;
+  image.height = imageHeight;
 
-  const text = document.createElement('p');
   text.classList.add('social__text');
   newComment.append(image);
   newComment.append(text);
@@ -58,8 +60,8 @@ const createComment = ({avatar, name, message})=>{
 };
 
 const renderComments = (listComments, commentsContainer) => {
-  commentsContainer.innerHTML = '';
   const fragment = document.createDocumentFragment();
+  commentsContainer.innerHTML = '';
   listComments.forEach((item) => {
     const comment = createComment(item);
     fragment.append(comment);
