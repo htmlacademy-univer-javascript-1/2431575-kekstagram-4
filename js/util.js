@@ -6,13 +6,10 @@ const getRandomInteger = (a, b) => {
 };
 const idCreater = () =>{
   let lastGeneratedId = 0;
-
   return function () {
     lastGeneratedId += 1;
     return lastGeneratedId;
   };
 };
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-
-
 export {getRandomArrayElement, idCreater, getRandomInteger};
