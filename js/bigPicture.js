@@ -4,15 +4,56 @@ const commentsContainer = bigPicture.querySelector('.social__comments');
 const countOfComments = bigPicture.querySelector('.social__comment-count');
 const commentsLoaderButton = bigPicture.querySelector('.comments-loader');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
+
+const startCounter = 5;
 const counter = countOfComments.textContent;
 let currCount = Number(counter.slice(0,1));
 const maxCount = countOfComments.querySelector('span');
-const maxCountTextContent = maxCount.textContent;
+
+const showModal = (closeFunc) =>{
+  document.body.classList.add('modal-open');
+  document.addEventListener('keydown', closeFunc);
+};
+
+const hideModal = (closeFunc) => {
+  document.body.classList.remove('modal-open');
+  document.removeEventListener('keydown', closeFunc);
+};
+
+const showComments = (remainToShow)=>{
+  const comments = document.querySelectorAll('.social__comment.hidden');
+  for (let i = 0; i < remainToShow; i++){
+    comments[i].classList.remove('hidden');
+  }
+};
+const reloadCounters = ()=> {
+  countOfComments.textContent = `${currCount} из ${maxCount.textContent}`;
+};
+
+const resetCounter = ()=>{
+  currCount = startCounter;
+};
+
+const loadComments = () =>
+{
+  const max = Number(maxCount.textContent);
+  const remain = max - currCount;
+  let increase = 5;
+  if (currCount + 5 > max){
+    currCount += remain;
+    increase = remain;
+  }
+  else if (currCount !== Number(maxCount.textContent)){
+    currCount += 5;
+  }
+  reloadCounters();
+  showComments(increase);
+};
 
 const hideBigPicture = ()=>{
   bigPicture.classList.add('hidden');
-  document.body.classList.remove('modal-open');
-  document.removeEventListener('keydown', closeOnKey);
+  hideModal(closeOnKey);
+  commentsLoaderButton.removeEventListener(loadComments);
 };
 
 function closeOnKey (evt) {
@@ -25,6 +66,7 @@ function closeOnKey (evt) {
 const closeButtonOnClick = ()=>{
   hideBigPicture();
 };
+
 cancelButton.addEventListener('click', closeButtonOnClick);
 
 const getPictureDetails = ({url, likes, description, comments})=> {
@@ -34,27 +76,18 @@ const getPictureDetails = ({url, likes, description, comments})=> {
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
   maxCount.textContent = comments.length;
-};
-
-const reloadCounters = ()=> {
-  countOfComments.textContent = `${currCount} из ${maxCountTextContent}`;
+  reloadCounters();
 };
 
 const showBigPicture = (miniature) => {
+  resetCounter();
   bigPicture.classList.remove('hidden');
-  commentsLoaderButton.addEventListener('click', ()=>
-  {
-    if (currCount !== Number(maxCountTextContent)){
-      currCount += 5;
-    }
-    reloadCounters();
-    renderComments(miniature.comments, currCount);
+  showModal(closeOnKey);
 
-  });
-  document.body.classList.add('modal-open');
-  document.addEventListener('keydown', closeOnKey);
+  commentsLoaderButton.addEventListener('click', loadComments);
   getPictureDetails(miniature);
   renderComments(miniature.comments, currCount);
+
 };
 
-export {showBigPicture, commentsContainer};
+export {showBigPicture, commentsContainer, showModal, hideModal};

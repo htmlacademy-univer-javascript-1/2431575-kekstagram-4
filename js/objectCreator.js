@@ -18,11 +18,14 @@ const createMiniatures = ({url, likes, description, comments}) => {
   return miniatureElement;
 };
 
-const createCommentPattern = ()=> {
+const createCommentPattern = (hidden)=> {
   const newComment = document.createElement('li');
   const text = document.createElement('p');
   const image = document.createElement('img');
   newComment.classList.add('social__comment');
+  if (hidden){
+    newComment.classList.add('hidden');
+  }
   image.classList.add('social__picture');
   image.src = '';
   image.alt = '';
@@ -35,8 +38,8 @@ const createCommentPattern = ()=> {
   return newComment;
 };
 
-const createComment = ({avatar, name, message})=>{
-  const comment = createCommentPattern();
+const createComment = ({avatar, name, message}, hidden)=>{
+  const comment = createCommentPattern(hidden);
   comment.querySelector('.social__picture').src = avatar;
   comment.querySelector('.social__picture').alt = name;
   comment.querySelector('.social__text').textContent = message;

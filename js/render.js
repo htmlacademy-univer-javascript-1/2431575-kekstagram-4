@@ -18,9 +18,18 @@ const renderMiniatures = (pictures) => {
 
 const renderComments = (listComments, loadCount) => {
   const fragment = document.createDocumentFragment();
+  const normalComments = false;
+  const hiddenComments = true;
   commentsContainer.innerHTML = '';
-  for (let i = 0; i < loadCount; i++){
-    fragment.append(createComment(listComments[i]));
+  for (let i = 0; i < listComments.length; i++){
+    let comment ='';
+    if (i < loadCount){
+      comment = createComment(listComments[i], normalComments);
+    }
+    else{
+      comment = createComment(listComments[i], hiddenComments);
+    }
+    fragment.append(comment);
   }
   commentsContainer.append(fragment);
 };
