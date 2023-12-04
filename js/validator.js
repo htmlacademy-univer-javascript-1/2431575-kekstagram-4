@@ -15,8 +15,16 @@ const checkHashTagCount = (value) => getListTags(value).length <= HASHTAG_MAX_CO
 const checkHashTagUnique = (value)=> normalizeTags(value).length === new Set(normalizeTags(value)).size;
 const checkHashTagValid = (value) => getListTags(value).every((hashTag) => hashTagRegular.test(hashTag));
 
+
 pristine.addValidator(descriptionField, checkCommentLength, `Длина комментаря не может превышать ${COMMENT_MAX_LENGTH} символов`);
 
 pristine.addValidator(hashtagField, checkHashTagCount, `Хештег не может быть больше ${HASHTAG_MAX_COUNT}`, 3, true);
 pristine.addValidator(hashtagField, checkHashTagUnique, 'Хештеги должны быть уникальны', 1, true);
 pristine.addValidator(hashtagField, checkHashTagValid, 'Нарушено правило составления хештега', 2, true);
+
+form.addEventListener('submit', (evt) => {
+  if (!pristine.validate()){
+    evt.preventDefault();
+  }
+});
+
