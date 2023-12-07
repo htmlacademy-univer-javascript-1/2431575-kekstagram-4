@@ -25,7 +25,9 @@ const getDigits = (str) => {
   }
   return result === '' ? NaN: result;
 };
-
+getStrLength('str', 3);
+checkPalindrom('fdf');
+getDigits('34');
 
 //Задание 5.16
 const summTime = (hours, minutes) => {
