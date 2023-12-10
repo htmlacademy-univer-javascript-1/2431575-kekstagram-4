@@ -6,6 +6,7 @@ const commentsLoaderButton = bigPicture.querySelector('.comments-loader');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
 const startCounter = 5;
+const counterIncrease = 5;
 const counter = countOfComments.textContent;
 let currCount = Number(counter.slice(0,1));
 const maxCount = countOfComments.querySelector('span');
@@ -55,13 +56,13 @@ const loadComments = () =>
 {
   const max = Number(maxCount.textContent);
   const remain = max - currCount;
-  let increase = 5;
-  if (currCount + 5 > max){
+  let increase = counterIncrease;
+  if (currCount + counterIncrease > max){
     currCount += remain;
     increase = remain;
   }
   else if (currCount !== max){
-    currCount += 5;
+    currCount += counterIncrease;
   }
   checkLoaderButton();
   reloadCounters();
@@ -71,7 +72,7 @@ const loadComments = () =>
 const hideBigPicture = ()=>{
   bigPicture.classList.add('hidden');
   hideModal(closeOnKey);
-  commentsLoaderButton.removeEventListener(loadComments);
+  commentsLoaderButton.removeEventListener('click', loadComments);
 };
 
 function closeOnKey (evt) {
