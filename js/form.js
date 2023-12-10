@@ -3,6 +3,9 @@ import {form, addSubmitBlocker, addValidators} from './validator.js';
 //import { resetEffects } from './filters.js';
 import {destroySlider, setEffectsSlider} from './filters.js';
 
+const descriptionField = document.querySelector('.text__description');
+const hashtagField = document.querySelector('.text__hashtags');
+
 const overlay = document.querySelector('.img-upload__overlay');
 const cancelButton = document.querySelector('.img-upload__cancel');
 const inputField = document.querySelector('.img-upload__input');
@@ -40,8 +43,6 @@ const biggerButtonClick = ()=>{
 
 const scaleToDefault = ()=> scalePreview(DEFAULT_SCALE);
 
-const descriptionField = document.querySelector('.text__description');
-const hashtagField = document.querySelector('.text__hashtags');
 
 
 const showOverlay = () => {
