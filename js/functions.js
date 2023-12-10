@@ -29,6 +29,7 @@ getStrLength('22fv', 4);
 checkPalindrom('adda');
 getDigits('123');
 
+
 //Задание 5.16
 const summTime = (hours, minutes) => {
   const firstNum = hours.split('.');
