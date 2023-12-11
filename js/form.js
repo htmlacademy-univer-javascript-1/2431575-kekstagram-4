@@ -1,6 +1,5 @@
 import { showModal, hideModal } from './bigPicture.js';
 import {form, addSubmitBlocker, addValidators} from './validator.js';
-//import { resetEffects } from './filters.js';
 import {destroySlider, setEffectsSlider} from './filters.js';
 
 const descriptionField = document.querySelector('.text__description');
@@ -42,8 +41,6 @@ const biggerButtonClick = ()=>{
 };
 
 const scaleToDefault = ()=> scalePreview(DEFAULT_SCALE);
-
-
 
 const showOverlay = () => {
   setEffectsSlider();
