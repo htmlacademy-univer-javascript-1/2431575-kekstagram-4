@@ -1,14 +1,17 @@
-import {descriptionField, hashtagField } from './form.js';
+import {descriptionField, hashtagField, form} from './form.js';
+import {sendData} from './api.js';
+import { createUploadAlert, error, success } from './util.js';
+const submitButton = document.querySelector('.img-upload__submit');
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAG_MAX_COUNT = 5;
 const hashTagRegular = /^#[a-zа-яё0-9]{1,19}$/i;
 
-const form = document.querySelector('.img-upload__form');
 
 const pristine = new Pristine(form,{
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
 });
+const isValid = ()=> pristine.validate();
 const checkCommentLength = (value) => value.length <= COMMENT_MAX_LENGTH;
 
 const getListTags = (value) => value.trim().split(' ').filter((hashTag) => Boolean(hashTag.length));
@@ -17,11 +20,30 @@ const checkHashTagCount = (value) => getListTags(value).length <= HASHTAG_MAX_CO
 const checkHashTagUnique = (value)=> normalizeTags(value).length === new Set(normalizeTags(value)).size;
 const checkHashTagValid = (value) => getListTags(value).every((hashTag) => hashTagRegular.test(hashTag));
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправка...';
+};
 
-const addSubmitBlocker = ()=> {
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+const addSubmitBlocker = (onSuccess)=> {
   form.addEventListener('submit', (evt) => {
-    if (!pristine.validate()){
-      evt.preventDefault();
+    evt.preventDefault();
+    if (isValid()) {
+      blockSubmitButton();
+      const formData = new FormData(evt.target);
+      sendData(formData)
+        .then(()=>{
+          onSuccess();
+          createUploadAlert(success);
+        })
+        .catch(()=>{
+          createUploadAlert(error);
+        })
+        .finally(() => unblockSubmitButton());
     }
   });
 };
