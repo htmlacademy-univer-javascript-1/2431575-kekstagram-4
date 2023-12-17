@@ -48,14 +48,15 @@ const showOverlay = () => {
   overlay.classList.remove('hidden');
   showModal(closeOnKeydown);
 };
-
-const hideOverlay = ()=> {
+const resetForm = ()=>{
   form.reset();
+  scaleToDefault();
   destroySlider();
+};
+const hideOverlay = ()=> {
+  inputField.value = '';
   overlay.classList.add('hidden');
   hideModal(closeOnKeydown);
-  inputField.value = '';
-  scaleToDefault();
 };
 
 function closeOnKeydown (evt) {
@@ -89,4 +90,4 @@ const initializeUploadForm = ()=>{
   biggerButton.addEventListener('click', biggerButtonClick);
 };
 
-export { descriptionField, hashtagField, initializeUploadForm, picturePreview, hideOverlay, form};
+export { descriptionField, hashtagField, initializeUploadForm, picturePreview, hideOverlay, form, resetForm};

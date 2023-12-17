@@ -1,34 +1,3 @@
-
-
-/*const getData = () => fetch(
-  'https://29.javascript.pages.academy/kekstagram/data')
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Не удалось получить данные c сервера');
-    }
-    return response.json();
-  })
-  .catch((err) => {
-    showAlert(err.message);
-  });
-
-const sendData = (body) => fetch(
-  'https://29.javascript.pages.academy/kekstagra',
-  {
-    method: 'POST',
-    body,
-  })
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
-    }
-    createUploadAlert(success);
-  })
-  .catch(() => {
-    createUploadAlert(error);
-  });
-*/
-
 const BASE_URL = 'https://29.javascript.pages.academy/kekstagram';
 const Route = {
   GET_DATA: '/data',
@@ -36,7 +5,7 @@ const Route = {
 };
 const Method = {
   GET: 'GET',
-  POST: 'POST',
+  POST: 'POS',
 };
 const ErrorText = {
   GET_DATA: 'Не удалось загрузить данные. Попробуйте обновить страницу',

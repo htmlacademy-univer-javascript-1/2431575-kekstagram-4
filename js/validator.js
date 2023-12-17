@@ -29,7 +29,7 @@ const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };
-const addSubmitBlocker = (onSuccess)=> {
+const addSubmitBlocker = (onFinaly, onSuccess)=> {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if (isValid()) {
@@ -43,7 +43,10 @@ const addSubmitBlocker = (onSuccess)=> {
         .catch(()=>{
           createUploadAlert(error);
         })
-        .finally(() => unblockSubmitButton());
+        .finally(() =>{
+          onFinaly();
+          unblockSubmitButton();
+        } );
     }
   });
 };
