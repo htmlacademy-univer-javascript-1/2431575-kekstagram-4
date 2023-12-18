@@ -1,6 +1,7 @@
 import { showBigPicture, commentsContainer } from './bigPicture.js';
 import { createMiniatures, createComment } from './objectCreator.js';
 
+
 const picturesList = document.querySelector('.pictures');
 const picturesFragment = document.createDocumentFragment();
 

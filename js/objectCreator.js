@@ -45,5 +45,40 @@ const createComment = ({avatar, name, message}, hidden)=>{
   comment.querySelector('.social__text').textContent = message;
   return comment;
 };
+const createNetworkAlert = ()=>{
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+  return alertContainer;
+};
 
-export {createMiniatures, createComment};
+const createUploadAlert = (alertTamplate)=>{
+  const alertContainer = alertTamplate.cloneNode(true);
+  document.body.append(alertContainer);
+  const button = alertContainer.querySelector('button');
+  const closeSection = (event)=> {
+    const alertMessage = alertContainer.querySelector('.success__inner');
+    if (alertMessage && !alertContainer.querySelector('.success__inner').contains(event.target)) {
+      alertContainer.remove();
+      document.removeEventListener('click', closeSection);
+    }
+  };
+  button.addEventListener('click', ()=> alertContainer.remove());
+  document.addEventListener('click', closeSection);
+  document.addEventListener('keydown', (evt)=>{
+    if (evt.key === 'Escape'){
+      evt.preventDefault();
+      alertContainer.remove();
+    }
+  });
+};
+
+
+export {createMiniatures, createComment, createNetworkAlert, createUploadAlert};
