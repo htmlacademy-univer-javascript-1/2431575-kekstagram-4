@@ -5,6 +5,13 @@ import { createMiniatures, createComment } from './objectCreator.js';
 const picturesList = document.querySelector('.pictures');
 const picturesFragment = document.createDocumentFragment();
 
+const removeMiniatures = () => {
+  const pictures = document.querySelectorAll('.picture');
+  pictures.forEach((picture) => {
+    picture.remove();
+  });
+};
+
 const renderMiniatures = (pictures) => {
   pictures.forEach((picture) => {
     const miniature = createMiniatures(picture);
@@ -15,6 +22,10 @@ const renderMiniatures = (pictures) => {
     });
   });
   picturesList.append(picturesFragment);
+};
+const reRenderMiniatures = (pictures)=>{
+  removeMiniatures(pictures);
+  renderMiniatures(pictures);
 };
 
 const renderComments = (listComments, loadCount) => {
@@ -35,4 +46,4 @@ const renderComments = (listComments, loadCount) => {
   commentsContainer.append(fragment);
 };
 
-export {renderMiniatures, renderComments};
+export {renderMiniatures, reRenderMiniatures, renderComments};

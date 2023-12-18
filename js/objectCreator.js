@@ -63,15 +63,15 @@ const createUploadAlert = (alertTamplate)=>{
   const alertContainer = alertTamplate.cloneNode(true);
   document.body.append(alertContainer);
   const button = alertContainer.querySelector('button');
-  const closeSection = (event)=> {
+  const onAlertClose = (evt)=> {
     const alertMessage = alertContainer.querySelector('.success__inner');
-    if (alertMessage && !alertContainer.querySelector('.success__inner').contains(event.target)) {
+    if (alertMessage && !alertContainer.querySelector('.success__inner').contains(evt.target)) {
       alertContainer.remove();
-      document.removeEventListener('click', closeSection);
+      document.removeEventListener('click', onAlertClose);
     }
   };
   button.addEventListener('click', ()=> alertContainer.remove());
-  document.addEventListener('click', closeSection);
+  document.addEventListener('click', onAlertClose);
   document.addEventListener('keydown', (evt)=>{
     if (evt.key === 'Escape'){
       evt.preventDefault();

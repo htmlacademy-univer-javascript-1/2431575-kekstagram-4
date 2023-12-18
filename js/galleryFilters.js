@@ -1,5 +1,5 @@
-import {debounce, getUniqueRandomElements, getSortedElements} from './util.js';
-import {renderMiniatures} from './render.js';
+import {getUniqueRandomElements, getSortedElements} from './util.js';
+
 
 const MAX_COUNT_OF_RANDOM = 10;
 
@@ -16,38 +16,30 @@ const comparerByComments = (firstPicture, secondPicture) => {
   return firstLength <= secondLength ? -1 : 1;
 };
 
-const removeMiniatures = () => {
-  const pictures = document.querySelectorAll('.picture');
-  pictures.forEach((picture) => {
-    picture.remove();
-  });
-};
-
 const changeActiveButton = (buttonToAdd)=>{
   const buttonToRemove = document.querySelector('.img-filters__button--active');
   buttonToRemove.classList.remove('img-filters__button--active');
   buttonToAdd.classList.add('img-filters__button--active');
 };
 
-const showFilteredMiniatures = (array) => {
-  removeMiniatures();
-  renderMiniatures(array);
+const showFilteredMiniatures = (array, callback) => {
+  callback(array);
 };
 
-const addFilterButtons = (pictures) => {
+const addFilterButtons = (pictures, callback) => {
   showFilters();
-  defaultButton.addEventListener('click', debounce(() => {
-    showFilteredMiniatures(pictures, defaultButton);
+  defaultButton.addEventListener('click', () => {
     changeActiveButton(defaultButton);
-  }));
-  randomButton.addEventListener('click', debounce(() => {
-    showFilteredMiniatures(getUniqueRandomElements(pictures, MAX_COUNT_OF_RANDOM));
+    showFilteredMiniatures(pictures, callback);
+  });
+  randomButton.addEventListener('click', () => {
     changeActiveButton(randomButton);
-  }));
-  discussedButton.addEventListener('click', debounce(() => {
-    showFilteredMiniatures(getSortedElements(pictures,comparerByComments));
+    showFilteredMiniatures(getUniqueRandomElements(pictures, MAX_COUNT_OF_RANDOM), callback);
+  });
+  discussedButton.addEventListener('click', () => {
     changeActiveButton(discussedButton);
-  }));
+    showFilteredMiniatures(getSortedElements(pictures,comparerByComments), callback);
+  });
 };
 
 export {addFilterButtons};

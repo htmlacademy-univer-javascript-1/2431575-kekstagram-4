@@ -12,16 +12,38 @@ const smallerButton = document.querySelector('.scale__control--smaller');
 const biggerButton = document.querySelector('.scale__control--bigger');
 const scaleValue = document.querySelector('.scale__control--value');
 const picturePreview = document.querySelector('.img-upload__preview img');
-const fullPrecent = 100;
+
+const fileInput = document.querySelector('input[type=file]');
+const previewOfEffects = document.querySelectorAll('.effects__preview');
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+const FULL_PRECENT = 100;
 const DEFAULT_SCALE = 100;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const SCALE_STEP = 25;
-const ratioOfIncrease = 1;
-const ratioOfDecrease = -1;
+const RATIO_OF_INCREASE = 1;
+const RATIO_OF_DECREASE = -1;
+
+const isValidType = (file)=>{
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((end)=> fileName.endsWith(end));
+};
+
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  const srcOfPreview = URL.createObjectURL(file);
+  if (file && isValidType(file)) {
+    picturePreview.src = srcOfPreview;
+    previewOfEffects.forEach((previewOfEffect)=>{
+      previewOfEffect.style.backgroundImage = `url(${srcOfPreview})`;
+    });
+  }
+});
 
 const scalePreview = (value) => {
-  const scale = value / fullPrecent;
+  const scale = value / FULL_PRECENT;
   picturePreview.style.transform = `scale(${scale})`;
   scaleValue.value = `${value}%`;
 };
@@ -31,19 +53,18 @@ const changeScale = (border, ratioOfChange)=>{
     scalePreview(parseInt(scaleValue.value, 10) + SCALE_STEP * ratioOfChange);
   }
 };
-const smallerButtonClick = ()=>{
-  changeScale(!(parseInt(scaleValue.value, 10) <= MIN_SCALE), ratioOfDecrease);
+const onSmallerButtonClick = ()=>{
+  changeScale(!(parseInt(scaleValue.value, 10) <= MIN_SCALE), RATIO_OF_DECREASE);
 };
 
-const biggerButtonClick = ()=>{
-  changeScale(!(parseInt(scaleValue.value, 10) >= MAX_SCALE), ratioOfIncrease);
+const onBiggerButtonClick = ()=>{
+  changeScale(!(parseInt(scaleValue.value, 10) >= MAX_SCALE), RATIO_OF_INCREASE);
 };
 
 const scaleToDefault = ()=> scalePreview(DEFAULT_SCALE);
 
 const showOverlay = () => {
   setEffectsSlider();
-
   scaleToDefault();
   overlay.classList.remove('hidden');
   showModal(closeOnKeydown);
@@ -62,7 +83,8 @@ const hideOverlay = ()=> {
 function closeOnKeydown (evt) {
   if (evt.key === 'Escape'){ //
     evt.preventDefault();   //
-    hideOverlay();       // что-то нужно объявлять раньше другого, а оставшуюся объявлять через function
+    hideOverlay();
+    resetForm();       // что-то нужно объявлять раньше другого, а оставшуюся объявлять через function
   }                        // чтобы была возможность использовать после объявления
 }
 
@@ -73,21 +95,21 @@ const onCancelButton = ()=>{
 const onFileInputButton = () => {
   showOverlay();
 };
-const stopPropagationOnKey = (evt)=>{
+
+const onKeyStopPropagation = (evt)=>{
   if (evt.key === 'Escape'){
     evt.stopPropagation();
   }
 };
 
-
 const initializeUploadForm = ()=>{
-  descriptionField.addEventListener('keydown', stopPropagationOnKey);
-  hashtagField.addEventListener('keydown', stopPropagationOnKey);
+  descriptionField.addEventListener('keydown', onKeyStopPropagation);
+  hashtagField.addEventListener('keydown', onKeyStopPropagation);
   inputField.addEventListener('change', onFileInputButton);
   cancelButton.addEventListener('click', onCancelButton);
 
-  smallerButton.addEventListener('click', smallerButtonClick);
-  biggerButton.addEventListener('click', biggerButtonClick);
+  smallerButton.addEventListener('click', onSmallerButtonClick);
+  biggerButton.addEventListener('click', onBiggerButtonClick);
 };
 
 export { descriptionField, hashtagField, initializeUploadForm, picturePreview, hideOverlay, form, resetForm};

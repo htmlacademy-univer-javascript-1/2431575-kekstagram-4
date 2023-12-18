@@ -86,7 +86,7 @@ const updateSliderOptions = ()=>{
     start : currEffect.max,
   });
 };
-const effectOnChange = (evt)=> {
+const onEffectChange = (evt)=> {
   currEffect = EFFECTS.find((effect)=> effect.name === evt.target.value);
   picturePreview.className = `effects__preview--${currEffect.name}`;
   updateSliderOptions();
@@ -120,6 +120,6 @@ const setEffectsSlider = ()=>{
   createSlider();
   hideSlider();
   slider.noUiSlider.on('update', onSliderUpdateValue);
-  filterItems.forEach((item)=> item.addEventListener('change', effectOnChange));
+  filterItems.forEach((item)=> item.addEventListener('change', onEffectChange));
 };
 export {destroySlider, setEffectsSlider};
