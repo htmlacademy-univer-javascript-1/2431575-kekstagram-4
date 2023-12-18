@@ -1,7 +1,6 @@
 import { showModal, hideModal } from './bigPicture.js';
-import {form, addSubmitBlocker, addValidators} from './validator.js';
 import {destroySlider, setEffectsSlider} from './filters.js';
-
+const form = document.querySelector('.img-upload__form');
 const descriptionField = document.querySelector('.text__description');
 const hashtagField = document.querySelector('.text__hashtags');
 
@@ -49,16 +48,15 @@ const showOverlay = () => {
   overlay.classList.remove('hidden');
   showModal(closeOnKeydown);
 };
-
-const hideOverlay = ()=> {
+const resetForm = ()=>{
   form.reset();
-
+  scaleToDefault();
   destroySlider();
-
+};
+const hideOverlay = ()=> {
+  inputField.value = '';
   overlay.classList.add('hidden');
   hideModal(closeOnKeydown);
-  inputField.value = '';
-  scaleToDefault();
 };
 
 function closeOnKeydown (evt) {
@@ -82,7 +80,7 @@ const stopPropagationOnKey = (evt)=>{
 };
 
 
-const addFormButtons = ()=>{
+const initializeUploadForm = ()=>{
   descriptionField.addEventListener('keydown', stopPropagationOnKey);
   hashtagField.addEventListener('keydown', stopPropagationOnKey);
   inputField.addEventListener('change', onFileInputButton);
@@ -92,11 +90,4 @@ const addFormButtons = ()=>{
   biggerButton.addEventListener('click', biggerButtonClick);
 };
 
-const initializeUploadForm = () => {
-  addFormButtons();
-  addSubmitBlocker();
-  addValidators();
-};
-
-
-export { descriptionField, hashtagField, initializeUploadForm, picturePreview};
+export { descriptionField, hashtagField, initializeUploadForm, picturePreview, hideOverlay, form, resetForm};
