@@ -1,11 +1,12 @@
 import {descriptionField, hashtagField, form} from './form.js';
 import {sendData} from './api.js';
-import { createUploadAlert, error, success } from './util.js';
+import { error, success } from './util.js';
+import { createUploadAlert } from './objectCreator.js';
+
 const submitButton = document.querySelector('.img-upload__submit');
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAG_MAX_COUNT = 5;
 const hashTagRegular = /^#[a-zа-яё0-9]{1,19}$/i;
-
 
 const pristine = new Pristine(form,{
   classTo: 'img-upload__field-wrapper',
@@ -29,7 +30,7 @@ const unblockSubmitButton = () => {
   submitButton.disabled = false;
   submitButton.textContent = 'Опубликовать';
 };
-const addSubmitBlocker = (onFinaly, onSuccess)=> {
+const setFormSubmit = (onFinaly, onSuccess)=> {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if (isValid()) {
@@ -56,5 +57,5 @@ const addValidators = ()=> {
   pristine.addValidator(hashtagField, checkHashTagUnique, 'Хештеги должны быть уникальны', 1, true);
   pristine.addValidator(hashtagField, checkHashTagValid, 'Нарушено правило составления хештега', 2, true);
 };
-export {addValidators, addSubmitBlocker, form};
+export {addValidators, setFormSubmit, form};
 
