@@ -52,7 +52,7 @@ const checkLoaderButton = ()=>{
   }
 };
 
-const loadComments = () =>
+const onCommentsLoad = () =>
 {
   const max = Number(maxCount.textContent);
   const remain = max - currCount;
@@ -72,7 +72,7 @@ const loadComments = () =>
 const hideBigPicture = ()=>{
   bigPicture.classList.add('hidden');
   hideModal(closeOnKey);
-  commentsLoaderButton.removeEventListener('click', loadComments);
+  commentsLoaderButton.removeEventListener('click', onCommentsLoad);
 };
 
 function closeOnKey (evt) {
@@ -102,7 +102,7 @@ const showBigPicture = (miniature) => {
   resetCounter();
   bigPicture.classList.remove('hidden');
   showModal(closeOnKey);
-  commentsLoaderButton.addEventListener('click', loadComments);
+  commentsLoaderButton.addEventListener('click', onCommentsLoad);
   getPictureDetails(miniature);
   renderComments(miniature.comments, currCount);
 };
