@@ -1,5 +1,16 @@
 import { showModal, hideModal } from './bigPicture.js';
 import {destroySlider, setEffectsSlider} from './filters.js';
+
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+const FULL_PRECENT = 100;
+const DEFAULT_SCALE = 100;
+const MIN_SCALE = 25;
+const MAX_SCALE = 100;
+const SCALE_STEP = 25;
+const RATIO_OF_INCREASE = 1;
+const RATIO_OF_DECREASE = -1;
+
 const form = document.querySelector('.img-upload__form');
 const descriptionField = document.querySelector('.text__description');
 const hashtagField = document.querySelector('.text__hashtags');
@@ -15,16 +26,6 @@ const picturePreview = document.querySelector('.img-upload__preview img');
 
 const fileInput = document.querySelector('input[type=file]');
 const previewOfEffects = document.querySelectorAll('.effects__preview');
-
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-
-const FULL_PRECENT = 100;
-const DEFAULT_SCALE = 100;
-const MIN_SCALE = 25;
-const MAX_SCALE = 100;
-const SCALE_STEP = 25;
-const RATIO_OF_INCREASE = 1;
-const RATIO_OF_DECREASE = -1;
 
 const isValidType = (file)=>{
   const fileName = file.name.toLowerCase();

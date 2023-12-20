@@ -1,5 +1,5 @@
-const imageWidth = 35;
-const imageHeight = 35;
+const IMAGE_WIDTH = 35;
+const IMAGE_HEIGHT = 35;
 
 const miniaturesTemplate = document.querySelector('#picture')
   .content
@@ -29,8 +29,8 @@ const createCommentPattern = (hidden)=> {
   image.classList.add('social__picture');
   image.src = '';
   image.alt = '';
-  image.width = imageWidth;
-  image.height = imageHeight;
+  image.width = IMAGE_WIDTH;
+  image.height = IMAGE_HEIGHT;
 
   text.classList.add('social__text');
   newComment.append(image);

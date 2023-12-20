@@ -3,11 +3,11 @@ import {sendData} from './api.js';
 import { error, success } from './util.js';
 import { createUploadAlert } from './objectCreator.js';
 
-const submitButton = document.querySelector('.img-upload__submit');
 const COMMENT_MAX_LENGTH = 140;
 const HASHTAG_MAX_COUNT = 5;
 const hashTagRegular = /^#[a-zа-яё0-9]{1,19}$/i;
 
+const submitButton = document.querySelector('.img-upload__submit');
 const pristine = new Pristine(form,{
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
