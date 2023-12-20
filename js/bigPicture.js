@@ -1,12 +1,14 @@
 import { renderComments } from './render.js';
+
+const START_COUNTER = 5;
+const COUNTER_INCREASE = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const commentsContainer = bigPicture.querySelector('.social__comments');
 const countOfComments = bigPicture.querySelector('.social__comment-count');
 const commentsLoaderButton = bigPicture.querySelector('.comments-loader');
 const cancelButton = bigPicture.querySelector('.big-picture__cancel');
 
-const START_COUNTER = 5;
-const COUNTER_INCREASE = 5;
 const counter = countOfComments.textContent;
 let currCount = Number(counter.slice(0,1));
 const maxCount = countOfComments.querySelector('span');
